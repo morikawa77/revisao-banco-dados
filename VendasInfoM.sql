@@ -163,3 +163,28 @@ create table Pedidos
   check (status between 1 and 3)
 )
 go
+
+
+insert into Pedidos
+  (data, status, vendedor_id, cliente_id)
+values
+  ('2023-12-25', 1, 2, 1)
+go
+
+insert into Pedidos
+  (data, status, vendedor_id, cliente_id)
+values
+  (getdate(), 1, 4, 1),
+  (getdate(), 2, 6, 5),
+  ('2024-04-17', 1, 8, 7),
+  ('2023-10-04', 3, 6, 3)
+go
+
+select *
+from Pedidos
+go
+
+select P.idPessoa Cod_Cliente, P.nome Cliente, P.cpf CPF_Cliente, P.status Situacao, C.credito Credito_Cliente, Ped.id No_Pedido, Ped.data Data_Pedido, Ped.vendedor_id Cod_Vendedor
+from Pessoas P, Clientes C, Pedidos Ped
+where P.idPessoa = C.pessoaId and C.pessoaId = Ped.cliente_id
+go 
