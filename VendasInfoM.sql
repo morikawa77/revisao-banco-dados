@@ -184,7 +184,13 @@ select *
 from Pedidos
 go
 
-select P.idPessoa Cod_Cliente, P.nome Cliente, P.cpf CPF_Cliente, P.status Situacao, C.credito Credito_Cliente, Ped.id No_Pedido, Ped.data Data_Pedido, Ped.vendedor_id Cod_Vendedor
+select P.idPessoa Cod_Cliente, P.nome Cliente, P.cpf CPF_Cliente, P.status Situacao, C.credito Credito_Cliente, Ped.id No_Pedido, Ped.data Data_Pedido, Ped.vendedor_id Cod_Vendedor,
+  (
+		select P.nome
+  from Pessoas P, Vendedores V
+  where P.idPessoa = V.pessoaId
+    and V.pessoaId = Ped.vendedor_id
+	) as Vendedor
 from Pessoas P, Clientes C, Pedidos Ped
 where P.idPessoa = C.pessoaId and C.pessoaId = Ped.cliente_id
 go 
